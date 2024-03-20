@@ -3,9 +3,9 @@ namespace {{namespace}};
 
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Contracts\Support\Renderable;
-use Kanuni\LaravelBladeAnchor\Contracts\Extender;
+use Kanuni\LaravelBladeAnchor\Contracts\AnchorExtender;
 
-class {{class}} implements Extender
+class {{class}} implements AnchorExtender
 {
     public function __invoke(?array $variables): string|Htmlable|Renderable
     {

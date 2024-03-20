@@ -12,7 +12,7 @@ class MakeAnchorExtenderCommand extends GeneratorCommand
 
     public function getStub(): string
     {
-        return __DIR__ . '../../stubs/anchor-extender.stub';
+        return __DIR__ . '/../../stubs/anchor-extender.stub';
     }
 
     public function getDefaultNamespace($rootNamespace)
