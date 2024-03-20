@@ -1,13 +1,12 @@
 <?php
 namespace {{namespace}};
 
-use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Contracts\Support\Renderable;
 use Kanuni\LaravelBladeAnchor\Contracts\AnchorExtender;
 
 class {{class}} implements AnchorExtender
 {
-    public function __invoke(?array $variables): string|Htmlable|Renderable|null
+    public function __invoke(?array $variables): string|Renderable|null
     {
         return '<p>Extending a view ...</p>';
     }
