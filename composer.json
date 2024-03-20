@@ -1,6 +1,6 @@
 {
     "name": "kanuni/laravel-blade-anchor",
-    "description": "This is my package laravel-blade-anchor",
+    "description": "Extend your Laravel template files easily with the power of the anchor ⚓",
     "keywords": [
         "Kanuni",
         "laravel",
