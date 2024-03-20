@@ -18,9 +18,6 @@ class BladeAnchorServiceProvider extends PackageServiceProvider
          */
         $package
             ->name('laravel-blade-anchor')
-            ->hasConfigFile()
-            ->hasViews()
-            ->hasMigration('create_laravel-blade-anchor_table')
             ->hasCommand(MakeBladeExtenderCommand::class);
     }
 
