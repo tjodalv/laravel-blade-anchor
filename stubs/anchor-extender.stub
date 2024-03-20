@@ -7,7 +7,7 @@ use Kanuni\LaravelBladeAnchor\Contracts\AnchorExtender;
 
 class {{class}} implements AnchorExtender
 {
-    public function __invoke(?array $variables): string|Htmlable|Renderable
+    public function __invoke(?array $variables): string|Htmlable|Renderable|null
     {
         return '<p>Extending a view ...</p>';
     }
