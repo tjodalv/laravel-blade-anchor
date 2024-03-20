@@ -11,6 +11,6 @@ class LaravelBladeAnchor extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return \Kanuni\LaravelBladeAnchor\BladeAnchor::class;
+        return \Kanuni\LaravelBladeAnchor\BladeAnchorsManager::class;
     }
 }

@@ -3,9 +3,9 @@
 namespace Kanuni\LaravelBladeAnchor;
 
 use Kanuni\LaravelBladeAnchor\Blade\ExtendBlade;
+use Kanuni\LaravelBladeAnchor\Commands\MakeAnchorExtenderCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Kanuni\LaravelBladeAnchor\Commands\MakeBladeExtenderCommand;
 
 class BladeAnchorServiceProvider extends PackageServiceProvider
 {
@@ -18,7 +18,7 @@ class BladeAnchorServiceProvider extends PackageServiceProvider
          */
         $package
             ->name('laravel-blade-anchor')
-            ->hasCommand(MakeBladeExtenderCommand::class);
+            ->hasCommand(MakeAnchorExtenderCommand::class);
     }
 
     public function bootingPackage()
