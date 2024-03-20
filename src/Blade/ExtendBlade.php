@@ -18,9 +18,10 @@ class ExtendBlade
                 <?php
                 foreach (
                     \Kanuni\LaravelBladeAnchor\Facades\LaravelBladeAnchor::getExtenders(\$__current_view_name, $anchorName)
-                    as \$extender
+                    as \$extenderClass
                 ) {
-                    \$extender(get_defined_vars());
+                    \$extender = app(\$extenderClass);
+                    echo \$extender(get_defined_vars());
                 }
                 ?>
             DIRECTIVE;
