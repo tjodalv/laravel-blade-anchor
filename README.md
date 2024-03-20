@@ -72,14 +72,15 @@ public function __invoke(?array $variables): string|Htmlable|Renderable
 }
 ```
 
-It's also possible to inject any dependency class into your extender's `__construct()` method:
+It's also possible to inject any dependency classes into your extender's `__construct()` method:
 
 ```php
 class WelcomePageExtender implements AnchorExtender
 {
     public function __construct(
         protected YourService $service
-    ) {}
+    )
+    {}
 
     public function __invoke(?array $variables): string|Htmlable|Renderable
     {
