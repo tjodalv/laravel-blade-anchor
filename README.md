@@ -17,11 +17,11 @@ composer require kanuni/laravel-blade-anchor
 
 ## Usage
 
-To enable extending your application UI you first need to place anchors on places in your blade template files where you want to allow third-party to extend your UI.
+To allow third-party packages to extend your application's UI, you need to insert anchors into your Blade template files at the points where you want to permit these extensions.
 
-### Place anchor(s) to enable extending your application UI
+### Placing anchors to enable UI extensions
 
-Somewhere in your blade file, for example in `resources/views/welcome.blade.php` add anchor directive. In this demo we will create an anchor right after opening `<body>` tag:
+In your Blade file (e.g., `resources/views/welcome.blade.php`), you can add an anchor directive. For this example, let's create an anchor immediately after the opening `<body>` tag:
 
 ```
 ...
@@ -31,19 +31,21 @@ Somewhere in your blade file, for example in `resources/views/welcome.blade.php`
 </body>
 ```
 
-Name of the anchor can be anything you want. In this example we assigned name `begin.body`.
+You can name the anchor anything you like. In this example, we've named it `begin.body`.
 
-### Creating extender class
+### Creating an extender class
 
-After we have placed our anchor we can register extender class to render some string or Laravel View at that anchor point. The best place to register your anchor extenders would be in the `boot()` method of your AppServiceProvider class. But first, let's create a new anchor extender class with artisan command:
+Once you've positioned your anchor, you can now register an extender class that will render a string or a Laravel View at that anchor point. Ideally, you should register your anchor extenders in the `boot()` method of your `AppServiceProvider` class.
+
+But first, let's create a new anchor extender class using the Artisan command:
 
 ```
 php artisan make:anchor-extender WelcomePageExtender
 ```
 
-That command will create new extender class in `app/BladeExtenders/WelcomePageExtender.php`. This is a simple class that implements `__invoke()` method. Results of that method will be rendered at anchor point.
+This command generates a new extender class in `app/BladeExtenders/WelcomePageExtender.php`. This class should implement the `__invoke()` method, whose return value will be rendered at the specified anchor point.
 
-Example of our newly created class:
+Here's an example of our newly created class:
 
 ```php
 namespace App\BladeExtenders;
@@ -61,7 +63,7 @@ class WelcomePageExtender implements AnchorExtender
 }
 ```
 
-As you can see, `__invoke()` method must return string or View. Also this function accepts array of available variables in your blade template. If you are returning blade view from `__invoke()` method you can pass the variables to your view like this:
+The `__invoke()` method can return a string or a View and accepts an optional array of variables available in your Blade template. If returning a Blade view, you can pass the variables to your view like this:
 
 ```php
 public function __invoke(?array $variables): string|Htmlable|Renderable
@@ -70,7 +72,7 @@ public function __invoke(?array $variables): string|Htmlable|Renderable
 }
 ```
 
-You can also resolve any service class in extender `__construct()` method:
+It's also possible to inject any dependency class into your extender's `__construct()` method:
 
 ```php
 class WelcomePageExtender implements AnchorExtender
@@ -86,9 +88,9 @@ class WelcomePageExtender implements AnchorExtender
 }
 ```
 
-### Attach extender to the anchor
+### Attaching the Extender to the Anchor
 
-Register your Blade extender in the `boot()` method of `app/Providers/AppServiceProvider` class using  `LaravelBladeAnchor` facade. To register the extender you have to call `registerExtender` method and provide view name, anchor name and extender class.
+Register your Blade extender in the `boot()` method of `app/Providers/AppServiceProvider` class using  `LaravelBladeAnchor` facade. To do this, call the `registerExtender` method and provide the view name, anchor name, and extender class.
 
 ```php
 use Kanuni\LaravelBladeAnchor\Facades\LaravelBladeAnchor;
