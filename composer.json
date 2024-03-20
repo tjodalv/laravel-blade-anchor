@@ -30,8 +30,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Kanuni\\LaravelBladeAnchor\\": "src/",
-            "Kanuni\\LaravelBladeAnchor\\Database\\Factories\\": "database/factories/"
+            "Kanuni\\LaravelBladeAnchor\\": "src/"
         }
     },
     "autoload-dev": {
