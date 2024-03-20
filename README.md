@@ -19,6 +19,8 @@ composer require kanuni/laravel-blade-anchor
 
 To enable extending your application UI you first need to place anchors on places in your blade template files where you want to allow third-party to extend your UI.
 
+### Place anchor(s) to enable extending your application UI
+
 Somewhere in your blade file, for example in `resources/views/welcome.blade.php` add anchor directive. In this demo we will create an anchor right after opening `<body>` tag:
 
 ```
@@ -30,6 +32,8 @@ Somewhere in your blade file, for example in `resources/views/welcome.blade.php`
 ```
 
 Name of the anchor can be anything you want. In this example we assigned name `begin.body`.
+
+### Creating extender class
 
 After we have placed our anchor we can register extender class to render some string or Laravel View at that anchor point. The best place to register your anchor extenders would be in the `boot()` method of your AppServiceProvider class. But first, let's create a new anchor extender class with artisan command:
 
