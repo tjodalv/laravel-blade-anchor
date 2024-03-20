@@ -1,4 +1,4 @@
-# Laravel Blade Anchor
+# Laravel Blade Anchor ⚓
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/kanuni/laravel-blade-anchor.svg?style=flat-square)](https://packagist.org/packages/kanuni/laravel-blade-anchor)
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/kanuni/laravel-blade-anchor/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/kanuni/laravel-blade-anchor/actions?query=workflow%3Arun-tests+branch%3Amain)
