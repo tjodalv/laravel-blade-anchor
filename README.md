@@ -1,19 +1,11 @@
-# This is my package laravel-blade-anchor
+# Laravel Blade Anchor
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/kanuni/laravel-blade-anchor.svg?style=flat-square)](https://packagist.org/packages/kanuni/laravel-blade-anchor)
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/kanuni/laravel-blade-anchor/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/kanuni/laravel-blade-anchor/actions?query=workflow%3Arun-tests+branch%3Amain)
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/kanuni/laravel-blade-anchor/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/kanuni/laravel-blade-anchor/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/kanuni/laravel-blade-anchor.svg?style=flat-square)](https://packagist.org/packages/kanuni/laravel-blade-anchor)
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
-
-## Support us
-
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/Laravel Blade Anchor.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/Laravel Blade Anchor)
-
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
-
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
+Enable extending your application's user interface by third-party code easily with anchors.
 
 ## Installation
 
@@ -23,43 +15,88 @@ You can install the package via composer:
 composer require kanuni/laravel-blade-anchor
 ```
 
-You can publish and run the migrations with:
-
-```bash
-php artisan vendor:publish --tag="laravel-blade-anchor-migrations"
-php artisan migrate
-```
-
-You can publish the config file with:
-
-```bash
-php artisan vendor:publish --tag="laravel-blade-anchor-config"
-```
-
-This is the contents of the published config file:
-
-```php
-return [
-];
-```
-
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag="laravel-blade-anchor-views"
-```
-
 ## Usage
 
-```php
-$laravelBladeAnchor = new Kanuni\LaravelBladeAnchor();
-echo $laravelBladeAnchor->echoPhrase('Hello, Kanuni!');
+To enable extending your application UI you first need to place anchors on places in your blade template files where you want to allow third-party to extend your UI.
+
+Somewhere in your blade file, for example in `resources/views/welcome.blade.php` add anchor directive. In this demo we will create an anchor right after opening `<body>` tag:
+
+```
+...
+<body>
+    @anchor('begin.body')
+    ...
+</body>
 ```
 
-## Testing
+Name of the anchor can be anything you want. In this example we assigned name `begin.body`.
 
-```bash
-composer test
+After we have placed our anchor we can register extender class to render some string or Laravel View at that anchor point. The best place to register your anchor extenders would be in the `boot()` method of your AppServiceProvider class. But first, let's create a new anchor extender class with artisan command:
+
+```
+php artisan make:anchor-extender WelcomePageExtender
+```
+
+That command will create new extender class in `app/BladeExtenders/WelcomePageExtender.php`. This is a simple class that implements `__invoke()` method. Results of that method will be rendered at anchor point.
+
+Example of our newly created class:
+
+```php
+namespace App\BladeExtenders;
+
+use Illuminate\Contracts\Support\Htmlable;
+use Illuminate\Contracts\Support\Renderable;
+use Kanuni\LaravelBladeAnchor\Contracts\AnchorExtender;
+
+class WelcomePageExtender implements AnchorExtender
+{
+    public function __invoke(?array $variables): string|Htmlable|Renderable
+    {
+        return '<p>This string will be injected at anchor point.</p>';
+    }
+}
+```
+
+As you can see, `__invoke()` method must return string or View. Also this function accepts array of available variables in your blade template. If you are returning blade view from `__invoke()` method you can pass the variables to your view like this:
+
+```php
+public function __invoke(?array $variables): string|Htmlable|Renderable
+{
+    return view('my-custom-blade-view', $variables);
+}
+```
+
+You can also resolve any service class in extender `__construct()` method:
+
+```php
+class WelcomePageExtender implements AnchorExtender
+{
+    public function __construct(
+        protected YourService $service
+    ) {}
+
+    public function __invoke(?array $variables): string|Htmlable|Renderable
+    {
+        return "<p>This are the results of your service: ${$this->service->getResults()}</p>";
+    }
+}
+```
+
+### Attach extender to the anchor
+
+Register your Blade extender in the `boot()` method of `app/Providers/AppServiceProvider` class using  `LaravelBladeAnchor` facade. To register the extender you have to call `registerExtender` method and provide view name, anchor name and extender class.
+
+```php
+use Kanuni\LaravelBladeAnchor\Facades\LaravelBladeAnchor;
+
+public function boot(): void
+{
+    LaravelBladeAnchor::registerExtender(
+        view: 'welcome',
+        anchor: 'test_anchor',
+        extenderClass: WelcomePageExtender::class,
+    );
+}
 ```
 
 ## Changelog
