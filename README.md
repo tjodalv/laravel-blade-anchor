@@ -50,13 +50,12 @@ Here's an example of our newly created class:
 ```php
 namespace App\BladeExtenders;
 
-use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Contracts\Support\Renderable;
 use Kanuni\LaravelBladeAnchor\Contracts\AnchorExtender;
 
 class WelcomePageExtender implements AnchorExtender
 {
-    public function __invoke(?array $variables): string|Htmlable|Renderable
+    public function __invoke(?array $variables): string|Renderable|null
     {
         return '<p>This string will be injected at anchor point.</p>';
     }
@@ -66,7 +65,7 @@ class WelcomePageExtender implements AnchorExtender
 The `__invoke()` method can return a string or a View and accepts an optional array of variables available in your Blade template. If returning a Blade view, you can pass the variables to your view like this:
 
 ```php
-public function __invoke(?array $variables): string|Htmlable|Renderable
+public function __invoke(?array $variables): string|Renderable|null
 {
     return view('my-custom-blade-view', $variables);
 }
@@ -82,7 +81,7 @@ class WelcomePageExtender implements AnchorExtender
     )
     {}
 
-    public function __invoke(?array $variables): string|Htmlable|Renderable
+    public function __invoke(?array $variables): string|Renderable|null
     {
         return "<p>This are the results of your service: {$this->service->getResults()}</p>";
     }
@@ -107,7 +106,7 @@ public function boot(): void
 }
 ```
 
-That is it.
+As demonstrated, anchor names are unique within each view. This means you can have anchors with the same name across two different views without any conflict.
 
 ## Changelog
 
@@ -116,10 +115,6 @@ Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed re
 ## Contributing
 
 Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
-
-## Security Vulnerabilities
-
-Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
 
 ## Credits
 
