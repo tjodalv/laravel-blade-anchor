@@ -81,7 +81,7 @@ class WelcomePageExtender implements AnchorExtender
 
     public function __invoke(?array $variables): string|Htmlable|Renderable
     {
-        return "<p>This are the results of your service: ${$this->service->getResults()}</p>";
+        return "<p>This are the results of your service: {$this->service->getResults()}</p>";
     }
 }
 ```
