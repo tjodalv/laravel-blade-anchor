@@ -97,11 +97,13 @@ public function boot(): void
 {
     LaravelBladeAnchor::registerExtender(
         view: 'welcome',
-        anchor: 'test_anchor',
+        anchor: 'begin.body',
         extenderClass: WelcomePageExtender::class,
     );
 }
 ```
+
+That is it.
 
 ## Changelog
 
