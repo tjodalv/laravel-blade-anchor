@@ -92,6 +92,7 @@ Register your Blade extender in the `boot()` method of `app/Providers/AppService
 
 ```php
 use Kanuni\LaravelBladeAnchor\Facades\LaravelBladeAnchor;
+use App\BladeExtenders\WelcomePageExtender;
 
 public function boot(): void
 {
