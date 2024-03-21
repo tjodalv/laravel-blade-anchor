@@ -4,6 +4,8 @@
     "keywords": [
         "Kanuni",
         "laravel",
+        "extend-ui",
+        "extend-blade-view",
         "laravel-blade-anchor"
     ],
     "homepage": "https://github.com/tjodalv/laravel-blade-anchor",
